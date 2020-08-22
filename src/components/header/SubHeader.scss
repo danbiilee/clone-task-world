@@ -1,0 +1,66 @@
+@import '../../utils/utils.scss';
+
+.SubHeader {
+  display: flex;
+  height: 50px;
+  @include background('SubHeader');
+  border-bottom: 1px solid $border-color-light;
+  ul {
+    display: flex;
+    width: 50%;
+    li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.btn-back {
+  width: 50px;
+  color: $oc-gray-6;
+  font-size: 1.7rem;
+  cursor: pointer;
+  &:hover,
+  &:active {
+    background: $oc-gray-1;
+    color: $oc-gray-7;
+  }
+}
+
+.btn-star {
+  padding: 0 10px 0 5px;
+  color: $color-yellow;
+  font-size: 1.3rem;
+  svg {
+    cursor: pointer;
+  }
+}
+
+.subHeader-outline {
+  justify-content: flex-end;
+  margin-right: 20px;
+  li {
+    margin: 7px 0 7px 7px;
+    padding: 0 7px;
+    border: 1px solid $border-color-light;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
+
+.btn-members {
+  svg {
+    margin-right: 5px;
+    font-size: 1.3rem;
+  }
+}
+
+.btn-setting {
+  font-size: 1.1rem;
+}

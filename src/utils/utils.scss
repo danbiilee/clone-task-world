@@ -1,0 +1,25 @@
+/* CDN, Packges ... */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@import '~open-color/open-color';
+
+/* Colors */
+@mixin background($el) {
+  $bg-color: '';
+  $text-color: '';
+
+  @if $el == 'Header' {
+    $bg-color: $oc-gray-8;
+    $text-color: $oc-gray-4;
+  } @else if $el == 'SubHeader' {
+    $bg-color: white;
+    $text-color: $oc-gray-7;
+  }
+
+  background: $bg-color;
+  color: $text-color;
+}
+
+$border-color-dark: $oc-gray-6;
+$border-color-light: $oc-gray-3;
+
+$color-yellow: $oc-yellow-5;
