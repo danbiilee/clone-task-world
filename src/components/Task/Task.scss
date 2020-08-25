@@ -1,0 +1,25 @@
+@import '../../utils/utils.scss';
+
+.Task {
+  margin-top: 3px;
+  padding: 20px 15px;
+  @include background('Task');
+  &:hover {
+    background: $oc-gray-1;
+    cursor: pointer;
+  }
+
+  .task-title-wrapper {
+    display: flex;
+    h4 {
+      display: flex;
+      width: 82%;
+      align-items: center;
+      svg {
+        margin-right: 5px;
+        color: $gray-middle;
+        font-size: 1.3rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+@import '../../utils/utils.scss';
+
+.Title {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  @include background('Tasklist-title');
+  h3 {
+    width: 70%;
+    font-weight: 500;
+  }
+  .btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 30%;
+    font-size: 1.2rem;
+    svg {
+      margin-left: 8px;
+      &:nth-child(2) {
+        margin-left: 10px;
+        font-size: 1.3rem;
+      }
+      &:nth-child(3) {
+        font-size: 1.5rem;
+      }
+      cursor: pointer;
+    }
+  }
+}
+
+.tasklist-doing {
+  padding: 6px 10px;
+  @include background('tasklist-doing');
+  font-size: 0.75rem;
+}

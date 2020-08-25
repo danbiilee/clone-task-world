@@ -13,13 +13,24 @@
   } @else if $el == 'SubHeader' {
     $bg-color: white;
     $text-color: $oc-gray-7;
+  } @else if $el == 'Tasklist-title' {
+    $bg-color: $oc-violet-9;
+    $text-color: white;
+  } @else if $el == 'tasklist-doing' {
+    $bg-color: $oc-violet-8;
+    $text-color: $oc-gray-4;
+  } @else if $el == 'Task' {
+    $bg-color: white;
+    $text-color: $oc-gray-9;
   }
-
   background: $bg-color;
   color: $text-color;
 }
 
-$border-color-dark: $oc-gray-6;
-$border-color-light: $oc-gray-3;
+$gray-dark: $oc-gray-6;
+$gray-middle: $oc-gray-4;
+$gray-light: $oc-gray-3;
 
-$color-yellow: $oc-yellow-5;
+$yellow: $oc-yellow-5;
+$red: $oc-red-8;
+$cyan: $oc-cyan-6;

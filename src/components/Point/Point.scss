@@ -1,0 +1,18 @@
+@import '../../utils/utils.scss';
+
+.Point {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  span {
+    width: 7px;
+    height: 7px;
+    margin-left: 2px;
+    border: 1px solid $gray-middle;
+    border-radius: 7px;
+    &.isFull {
+      border: 0;
+      background: $cyan;
+    }
+  }
+}

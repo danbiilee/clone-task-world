@@ -17,7 +17,9 @@ const SubHeader = () => {
         <li className="btn-star">
           <TiStarOutline />
         </li>
-        <li className="title">모니터링</li>
+        <li className="title">
+          <h2>모니터링</h2>
+        </li>
       </ul>
       <ul className="subHeader-outline">
         <li className="btn-members">

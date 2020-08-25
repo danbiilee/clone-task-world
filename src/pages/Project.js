@@ -1,14 +1,14 @@
 import React from 'react';
-import SubHeader from '../components/header/SubHeader';
+import SubHeader from '../components/Header/SubHeader';
+import TaskList from '../components/Task';
 
 const Project = () => {
   return (
-    <>
-      <section>
-        <SubHeader />
-      </section>
+    <section>
+      <SubHeader />
+      <TaskList />
       {/* 셋팅바<section></section> */}
-    </>
+    </section>
   );
 };
 
