@@ -1,5 +1,40 @@
 @import '../../utils/utils.scss';
 
 .Checklist {
+  margin-top: 15px;
   border: 1px solid $gray-middle;
+  border-radius: 3px;
+  .chklist-wrapper {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $gray-middle;
+    &:last-of-type {
+      border-bottom: 0;
+    }
+    & > div {
+      padding: 5px 10px;
+    }
+
+    .chkbox {
+      padding-right: 10px;
+      border-right: 2px double $red;
+      color: $gray-middle;
+      font-size: 0.9rem;
+    }
+    .chktxt {
+      display: flex;
+      align-items: center;
+      width: 85%;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      svg {
+        margin-right: 5px;
+        font-size: 1.3rem;
+      }
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
 }

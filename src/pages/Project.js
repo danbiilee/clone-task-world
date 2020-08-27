@@ -1,12 +1,12 @@
 import React from 'react';
 import SubHeader from '../components/Header/SubHeader';
-import TaskList from '../components/Task';
+import TaskListWrapper from '../components/Task';
 
 const Project = () => {
   return (
     <section>
       <SubHeader />
-      <TaskList />
+      <TaskListWrapper />
       {/* 셋팅바<section></section> */}
     </section>
   );

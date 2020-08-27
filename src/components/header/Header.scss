@@ -1,7 +1,10 @@
 @import '../../utils/utils.scss';
 
 .Header {
+  position: fixed;
+  top: 0;
   display: flex;
+  width: 100%;
   height: 50px;
   @include background('Header');
   font-size: 1rem;

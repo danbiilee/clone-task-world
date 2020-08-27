@@ -1,0 +1,13 @@
+@import '../../utils/utils.scss';
+
+.Footer {
+  padding: 15px;
+  border-top: 1px solid $gray-light;
+  background: #fff;
+  color: $gray-dark;
+  font-size: 1rem;
+  font-weight: bold;
+  span {
+    color: $cyan;
+  }
+}

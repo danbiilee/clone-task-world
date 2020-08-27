@@ -5,10 +5,16 @@ import './TaskList.scss';
 
 const TaskList = () => {
   return (
-    <section className="TaskList">
-      <Title />
-      <Task />
-    </section>
+    <>
+      <section className="TaskList">
+        <Title />
+        <div className="task-wrapper">
+          <Task />
+          <Task />
+          <Task />
+        </div>
+      </section>
+    </>
   );
 };
 
