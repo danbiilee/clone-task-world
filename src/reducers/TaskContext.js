@@ -1,0 +1,189 @@
+import React, { useReducer, createContext, useContext, useRef } from 'react';
+
+const initialTasks = [
+  {
+    id: 1,
+    title: 'Tasklist 페이지 마크업',
+    isDone: true,
+    tag: null,
+    point: 1,
+    chkList: [
+      {
+        id: 1,
+        title: 'styled-components로 변경?',
+        assignedMber: 'danbi',
+        isDone: false,
+        regMber: 'danbi',
+        regDt: '2020-08-21',
+        updMber: null,
+        updDt: null,
+      },
+      {
+        id: 2,
+        title: '체크박스 보더 여백 없애기',
+        assignedMber: 'danbi',
+        isDone: true,
+        regMber: 'danbi',
+        regDt: '2020-08-21',
+        updMber: null,
+        updDt: null,
+      },
+    ],
+    commentList: [
+      {
+        id: 1,
+        contents: '뜨악!!!',
+        regMber: 'ash',
+        regDt: '2020-08-23',
+        updMber: null,
+        updDt: null,
+      },
+    ],
+    fileList: [],
+    mberList: [
+      {
+        mberNo: 1,
+        mberId: 'danbi',
+        mberNm: '이단비',
+        profile: '/null.png',
+      },
+      {
+        mberNo: 2,
+        mberId: 'ash',
+        mberNm: '애쉬',
+        profile: null,
+      },
+    ],
+    stDt: '2020-08-20',
+    endDt: null,
+    regMber: 'danbi',
+    regDt: '2020-08-21',
+    updMber: 'danbi',
+    updDt: '2020-09-02',
+  },
+  {
+    id: 2,
+    title: 'Task 상태관리',
+    isDone: false,
+    tag: 'priority',
+    point: 5,
+    chkList: [
+      {
+        id: 1,
+        title: '시작하기!',
+        assignedMber: 'danbi',
+        isDone: false,
+        regMber: 'danbi',
+        regDt: '2020-09-02',
+        updMber: null,
+        updDt: null,
+      },
+    ],
+    commentList: [],
+    fileList: [],
+    mberList: [
+      {
+        mberNo: 1,
+        mberId: 'danbi',
+        mberNm: '이단비',
+        profile: '/null.png',
+      },
+    ],
+    stDt: '2020-09-02',
+    endDt: '2020-09-03',
+    regMber: 'danbi',
+    regDt: '2020-08-21',
+    updMber: null,
+    updDt: null,
+  },
+  {
+    id: 3,
+    title: 'Tasklist 상태관리',
+    isDone: false,
+    tag: 'important',
+    point: 3,
+    chkList: [],
+    commentList: [],
+    fileList: [],
+    mberList: [
+      {
+        mberNo: 1,
+        mberId: 'danbi',
+        mberNm: '이단비',
+        profile: '/null.png',
+      },
+    ],
+    stDt: '2020-09-02',
+    endDt: '2020-09-07',
+    regMber: 'danbi',
+    regDt: '2020-09-02',
+    updMber: null,
+    updDt: null,
+  },
+];
+
+function taskReducer(state, action) {
+  switch (action.type) {
+    case 'CREATE':
+      return state.concat(action.task);
+    case 'TOGGLE':
+      return state.map(task =>
+        task.id === action.obj.id
+          ? {
+              ...task,
+              isDone: !task.isDone,
+              updMber: action.obj.mberId,
+              updDt: action.obj.now,
+            }
+          : task,
+      );
+    case 'REMOVE':
+      // 삭제되는 아이템 정보 업데이트는 못하는 건가???
+      return state.filter(task => action.obj.id !== task.id);
+    default:
+      throw new Error(`Unhandled action type: ${action.type}`);
+  }
+}
+
+const TaskStateContext = createContext();
+const TaskDispatchContext = createContext();
+const TaskNextIdContext = createContext();
+
+export function TaskProvider({ children }) {
+  const [state, dispatch] = useReducer(taskReducer, initialTasks);
+  const nextId = useRef(4);
+
+  return (
+    <TaskStateContext.Provider value={state}>
+      <TaskDispatchContext.Provider value={dispatch}>
+        <TaskNextIdContext.Provider value={nextId}>
+          {children}
+        </TaskNextIdContext.Provider>
+      </TaskDispatchContext.Provider>
+    </TaskStateContext.Provider>
+  );
+}
+
+export function useTaskState() {
+  const context = useContext(TaskStateContext);
+  if (!context) {
+    throw new Error('Cannot find TaskProvider');
+  }
+  return context;
+}
+
+export function useTaskDispatch() {
+  const context = useContext(TaskDispatchContext);
+  if (!context) {
+    throw new Error('Cannot find TaskProvider');
+  }
+  return context;
+}
+
+export function useTaskNextId() {
+  const context = useContext(TaskNextIdContext);
+  if (!context) {
+    throw new Error('Cannot find TaskProvider');
+  }
+  return context;
+}
