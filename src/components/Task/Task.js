@@ -1,5 +1,10 @@
 import React from 'react';
-import { MdCheckBoxOutlineBlank, MdFace } from 'react-icons/md';
+import {
+  MdCheckBoxOutlineBlank,
+  MdCheckBox,
+  MdFace,
+  MdSentimentNeutral,
+} from 'react-icons/md';
 import { BsCardChecklist, BsChat } from 'react-icons/bs';
 import { IoMdAttach } from 'react-icons/io';
 import './Task.scss';
@@ -20,30 +25,36 @@ const Task = ({ task }) => {
     stDt,
     endDt,
   } = task;
+  const cntChkList = chkList.reduce((acc, cur) => acc + cur.isDone, 0);
+
   return (
     <section className="Task">
       {tag && <Tag tag={tag} />}
       <header className="task-title-wrapper">
         <h4>
-          <MdCheckBoxOutlineBlank /> {title}
+          {isDone ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+          {title}
         </h4>
         <Point point={point} />
       </header>
-      <Checklist />
+      <Checklist chkList={chkList} />
       <div className="due-to">02월 23일에 시작</div>
       <div className="etc-wrapper">
         <span>
-          <BsCardChecklist /> 1/3
+          <BsCardChecklist />
+          {chkList.length ? `${cntChkList}/${chkList.length}` : 0}
         </span>
         <span>
-          <BsChat /> 1
+          <BsChat /> {commentList.length}
         </span>
         <span>
-          <IoMdAttach /> 0
+          <IoMdAttach /> {fileList.length}
         </span>
       </div>
       <div className="mber-list">
-        <MdFace />
+        {mberList.map(mber =>
+          React.createElement(mber.profile, { key: mber.mberNo }, null),
+        )}
       </div>
     </section>
   );
