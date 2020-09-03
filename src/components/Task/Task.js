@@ -7,15 +7,27 @@ import Tag from '../Tag/Tag';
 import Point from '../Point/Point';
 import Checklist from '../Checklist/Checklist';
 
-const Task = () => {
+const Task = ({ task }) => {
+  const {
+    title,
+    isDone,
+    tag,
+    point,
+    chkList,
+    commentList,
+    fileList,
+    mberList,
+    stDt,
+    endDt,
+  } = task;
   return (
     <section className="Task">
-      <Tag />
+      {tag && <Tag tag={tag} />}
       <header className="task-title-wrapper">
         <h4>
-          <MdCheckBoxOutlineBlank /> 대상자 분리
+          <MdCheckBoxOutlineBlank /> {title}
         </h4>
-        <Point />
+        <Point point={point} />
       </header>
       <Checklist />
       <div className="due-to">02월 23일에 시작</div>
