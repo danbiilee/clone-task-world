@@ -120,6 +120,23 @@ const initialTasks = [
     updMber: null,
     updDt: null,
   },
+  {
+    id: 4,
+    title: '리덕스 공부하기',
+    isDone: false,
+    tag: 'notice',
+    point: null,
+    chkList: [],
+    commentList: [],
+    fileList: [],
+    mberList: [],
+    stDt: null,
+    endDt: '2020-09-07',
+    regMber: null,
+    regDt: '2020-09-03',
+    updMber: null,
+    updDt: null,
+  },
 ];
 
 function taskReducer(state, action) {
@@ -151,7 +168,7 @@ const TaskNextIdContext = createContext();
 
 export function TaskProvider({ children }) {
   const [state, dispatch] = useReducer(taskReducer, initialTasks);
-  const nextId = useRef(4);
+  const nextId = useRef(5);
 
   return (
     <TaskStateContext.Provider value={state}>
