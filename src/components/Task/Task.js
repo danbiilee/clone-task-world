@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  MdCheckBoxOutlineBlank,
-  MdCheckBox,
-  MdFace,
-  MdSentimentNeutral,
-} from 'react-icons/md';
+import { MdCheckBoxOutlineBlank, MdCheckBox } from 'react-icons/md';
 import { BsCardChecklist, BsChat } from 'react-icons/bs';
 import { IoMdAttach } from 'react-icons/io';
 import './Task.scss';
@@ -37,7 +32,7 @@ const Task = ({ task }) => {
         </h4>
         <Point point={point} />
       </header>
-      <Checklist chkList={chkList} />
+      {chkList.length ? <Checklist chkList={chkList} /> : null}
       <div className="due-to">02월 23일에 시작</div>
       <div className="etc-wrapper">
         <span>
