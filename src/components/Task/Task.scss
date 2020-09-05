@@ -11,6 +11,7 @@
 
   .task-title-wrapper {
     display: flex;
+    margin-bottom: 15px;
     h4 {
       display: flex;
       width: 82%;
@@ -39,6 +40,9 @@
     span {
       display: inherit;
       margin-right: 10px;
+      &:not(:last-of-type) svg {
+        margin-right: 4px;
+      }
     }
   }
   .mber-list {
