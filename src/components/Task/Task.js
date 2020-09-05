@@ -6,6 +6,7 @@ import './Task.scss';
 import Tag from '../Tag/Tag';
 import Point from '../Point/Point';
 import Checklist from '../Checklist/Checklist';
+import Deadline from '../Deadline/Deadline';
 
 const Task = ({ task }) => {
   const {
@@ -33,7 +34,7 @@ const Task = ({ task }) => {
         <Point point={point} />
       </header>
       {chkList.length ? <Checklist chkList={chkList} /> : null}
-      <div className="due-to">02월 23일에 시작</div>
+      {!stDt && !endDt ? null : <Deadline stDt={stDt} endDt={endDt} />}
       <div className="etc-wrapper">
         <span>
           <BsCardChecklist />
