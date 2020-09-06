@@ -3,7 +3,6 @@ import { MdCheckBoxOutlineBlank, MdCheckBox, MdFace } from 'react-icons/md';
 import './Checklist.scss';
 
 const Checklist = ({ chkList }) => {
-  chkList.map(item => console.log(item.id));
   return (
     <div className="Checklist">
       {chkList.map(item => (
