@@ -105,7 +105,7 @@ const initialTasks = [
     point: 5,
     chkList: [
       {
-        id: 1,
+        id: 3,
         title: '시작하기!',
         assignedMber: {
           mberNo: 1,
