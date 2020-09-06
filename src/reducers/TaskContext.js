@@ -201,17 +201,18 @@ const initialTasks = [
 ];
 
 function taskReducer(state, action) {
+  console.log(action);
   switch (action.type) {
     case 'CREATE':
       return state.concat(action.task);
     case 'TOGGLE':
       return state.map(task =>
-        task.id === action.obj.id
+        task.id === action.id
           ? {
               ...task,
               isDone: !task.isDone,
-              updMber: action.obj.mberId,
-              updDt: action.obj.now,
+              updMber: action.updMber,
+              updDt: action.updDt,
             }
           : task,
       );

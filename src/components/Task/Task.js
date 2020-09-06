@@ -7,6 +7,7 @@ import Tag from '../Tag/Tag';
 import Point from '../Point/Point';
 import Checklist from '../Checklist/Checklist';
 import Deadline from '../Deadline/Deadline';
+import { useTaskDispatch } from '../../reducers/TaskContext';
 
 const Task = ({ task }) => {
   const {
@@ -22,13 +23,23 @@ const Task = ({ task }) => {
     endDt,
   } = task;
   const cntChkList = chkList.reduce((acc, cur) => acc + cur.isDone, 0);
+  const dispath = useTaskDispatch();
+  const onToggle = () =>
+    dispath({
+      type: 'TOGGLE',
+      id: task.id,
+      updMber: 'danbi', // 업데이트 정보 임시 하드코딩
+      updDt: '2020-09-06',
+    });
 
   return (
     <section className="Task">
       {tag && <Tag tag={tag} />}
       <header className="task-title-wrapper">
         <h4>
-          {isDone ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+          <span onClick={onToggle}>
+            {isDone ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+          </span>
           {title}
         </h4>
         <Point point={point} />
