@@ -3,6 +3,7 @@
 .Title {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   padding: 10px;
   @include background('Tasklist-title');
   h3 {
@@ -24,7 +25,64 @@
       &:nth-child(3) {
         font-size: 1.5rem;
       }
-      cursor: pointer;
+      &:hover {
+        background: #4c30a1;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.create-wrapper {
+  width: 100%;
+  margin-top: 10px;
+  textarea {
+    width: 100%;
+    height: 65px;
+    padding: 5px 7px;
+    border: 2px solid $cyan;
+    border-radius: 3px;
+    border-bottom: 0;
+    outline: 0;
+    resize: none;
+  }
+  .cr-btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: -3px;
+    padding: 5px;
+    background: white;
+    border: 2px solid $cyan;
+    border-radius: 3px;
+    border-top: 0;
+    .cr-btn-l {
+      svg {
+        color: $gray-dark;
+      }
+    }
+    button {
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: 0.78rem;
+      font-weight: bold;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .btn-cancel {
+      color: #70767c;
+      &:hover {
+        background: #ccc;
+      }
+    }
+    .btn-create {
+      margin-left: 5px;
+      background: $cyan;
+      color: white;
+      &:hover {
+        background: #148c9d;
+      }
     }
   }
 }
