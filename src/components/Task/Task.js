@@ -2,6 +2,7 @@ import React from 'react';
 import { MdCheckBoxOutlineBlank, MdCheckBox } from 'react-icons/md';
 import { BsCardChecklist, BsChat } from 'react-icons/bs';
 import { IoMdAttach } from 'react-icons/io';
+import className from 'classnames';
 import './Task.scss';
 import Tag from '../Tag/Tag';
 import Point from '../Point/Point';
@@ -9,7 +10,8 @@ import Checklist from '../Checklist/Checklist';
 import Deadline from '../Deadline/Deadline';
 import { useTaskDispatch } from '../../reducers/TaskContext';
 
-const Task = ({ task }) => {
+const Task = ({ task, type }) => {
+  const today = new Date().toISOString().substring(0, 10);
   const {
     title,
     isDone,
@@ -21,6 +23,7 @@ const Task = ({ task }) => {
     mberList,
     stDt,
     endDt,
+    finDt,
   } = task;
   const cntChkList = chkList.reduce((acc, cur) => acc + cur.isDone, 0);
   const dispath = useTaskDispatch();
@@ -28,12 +31,11 @@ const Task = ({ task }) => {
     dispath({
       type: 'TOGGLE',
       id: task.id,
-      updMber: 'danbi', // 업데이트 정보 임시 하드코딩
-      updDt: '2020-09-06',
+      finDt: today,
     });
 
   return (
-    <section className="Task">
+    <section className={className('Task', type)}>
       {tag && <Tag tag={tag} />}
       <header className="task-title-wrapper">
         <h4>
@@ -45,7 +47,9 @@ const Task = ({ task }) => {
         <Point point={point} />
       </header>
       {chkList.length ? <Checklist chkList={chkList} /> : null}
-      {!stDt && !endDt ? null : <Deadline stDt={stDt} endDt={endDt} />}
+      {stDt || endDt || finDt ? (
+        <Deadline stDt={stDt} endDt={endDt} finDt={finDt} />
+      ) : null}
       <div className="etc-wrapper">
         <span>
           <BsCardChecklist />

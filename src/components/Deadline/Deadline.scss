@@ -9,4 +9,7 @@
   &.isOver {
     color: $red;
   }
+  &.isFin {
+    color: $gray-dark;
+  }
 }

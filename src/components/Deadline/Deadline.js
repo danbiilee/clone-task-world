@@ -20,12 +20,17 @@ const strToDate = str => {
   3. 둘 다 있는 경우
     a. 마감일 안 지난 경우: 시작일 - 마감일
     b. 마감일 지난 경우: 마감일 ~일 지남
+  4. 완료된 경우: ~에 완료
 */
-const handleDeadline = (stDt, endDt) => {
+const handleDeadline = (stDt, endDt, finDt) => {
   const start = stDt && `${stDt.substring(5, 7)}월${stDt.substring(8)}일`;
   const end = endDt && `${endDt.substring(5, 7)}월${endDt.substring(8)}일`;
+  const fin = finDt && `${finDt.substring(5, 7)}월${finDt.substring(8)}일`;
   let result = '';
 
+  if (fin) {
+    return `${fin}에 완료`;
+  }
   if (end && today > endDt) {
     const diff = (strToDate(today) - strToDate(endDt)) / (1000 * 60 * 60 * 24);
     return `마감일 ${diff}일 지남`;
@@ -41,11 +46,14 @@ const handleDeadline = (stDt, endDt) => {
   return result;
 };
 
-const Deadline = ({ stDt, endDt }) => {
+const Deadline = ({ stDt, endDt, finDt }) => {
   const isOver = endDt && today > endDt ? true : false; // 기한 지남 여부
+  const isFin = finDt ? true : false; // 완료 여부
   return (
-    <div className={classNames('Deadline', { isOver: isOver })}>
-      {handleDeadline(stDt, endDt)}
+    <div
+      className={classNames('Deadline', { isOver: isOver }, { isFin: isFin })}
+    >
+      {handleDeadline(stDt, endDt, finDt)}
     </div>
   );
 };

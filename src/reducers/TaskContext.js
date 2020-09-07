@@ -82,6 +82,7 @@ const initialTasks = [
     ],
     stDt: '2020-08-20',
     endDt: null,
+    finDt: '2020-09-04',
     regMber: {
       mberNo: 1,
       mberId: 'danbi',
@@ -137,6 +138,7 @@ const initialTasks = [
     ],
     stDt: '2020-09-02',
     endDt: '2020-09-03',
+    finDt: null,
     regMber: {
       mberNo: 1,
       mberId: 'danbi',
@@ -166,6 +168,7 @@ const initialTasks = [
     ],
     stDt: '2020-09-02',
     endDt: '2020-09-07',
+    finDt: null,
     regMber: {
       mberNo: 2,
       mberId: 'ash',
@@ -188,6 +191,7 @@ const initialTasks = [
     mberList: [],
     stDt: null,
     endDt: '2020-09-07',
+    finDt: null,
     regMber: {
       mberNo: 2,
       mberId: 'ash',
@@ -201,7 +205,6 @@ const initialTasks = [
 ];
 
 function taskReducer(state, action) {
-  console.log(action);
   switch (action.type) {
     case 'CREATE':
       return state.concat(action.task);
@@ -211,8 +214,7 @@ function taskReducer(state, action) {
           ? {
               ...task,
               isDone: !task.isDone,
-              updMber: action.updMber,
-              updDt: action.updDt,
+              finDt: action.finDt,
             }
           : task,
       );
