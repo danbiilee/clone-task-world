@@ -1,0 +1,15 @@
+@import '../../utils/utils.scss';
+
+.Done {
+  padding: 7px 10px 7px 0;
+  background: $oc-gray-1;
+  border-top: 3px solid #ebebeb;
+  color: $gray-dark;
+  font-size: 0.8rem;
+  text-align: right;
+  text-decoration: underline;
+  &:hover {
+    color: #333;
+    cursor: pointer;
+  }
+}

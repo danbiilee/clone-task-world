@@ -8,6 +8,13 @@
     background: $oc-gray-1;
     cursor: pointer;
   }
+  &.done {
+    display: none;
+    background: $oc-gray-1;
+    &.isActive {
+      display: block;
+    }
+  }
 
   .task-title-wrapper {
     display: flex;

@@ -10,7 +10,7 @@ import Checklist from '../Checklist/Checklist';
 import Deadline from '../Deadline/Deadline';
 import { useTaskDispatch } from '../../reducers/TaskContext';
 
-const Task = ({ task, type }) => {
+const Task = ({ task, type, isActive }) => {
   const today = new Date().toISOString().substring(0, 10);
   const {
     title,
@@ -35,7 +35,7 @@ const Task = ({ task, type }) => {
     });
 
   return (
-    <section className={className('Task', type)}>
+    <section className={className('Task', type, { isActive: isActive })}>
       {tag && <Tag tag={tag} />}
       <header className="task-title-wrapper">
         <h4>
