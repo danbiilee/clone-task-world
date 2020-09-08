@@ -34,8 +34,12 @@
 }
 
 .create-wrapper {
+  display: none;
   width: 100%;
   margin-top: 10px;
+  &.isActive {
+    display: block;
+  }
   textarea {
     width: 100%;
     height: 65px;
