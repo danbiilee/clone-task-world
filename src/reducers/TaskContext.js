@@ -214,7 +214,7 @@ function taskReducer(state, action) {
           ? {
               ...task,
               isDone: !task.isDone,
-              finDt: action.finDt,
+              finDt: task.isDone ? null : action.finDt,
             }
           : task,
       );
