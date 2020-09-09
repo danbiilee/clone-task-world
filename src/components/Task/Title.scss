@@ -52,7 +52,7 @@
   }
   .cr-btn-wrapper {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     width: 100%;
     margin-top: -3px;
     padding: 5px;
@@ -61,8 +61,23 @@
     border-radius: 3px;
     border-top: 0;
     .cr-btn-l {
-      svg {
-        color: $gray-dark;
+      display: flex;
+      align-items: center;
+      color: $gray-dark;
+      font-size: 1rem;
+      div {
+        margin: 2px 5px 0 0;
+      }
+      & > svg {
+        margin-right: 7px;
+        cursor: pointer;
+        &:first-of-type {
+          font-size: 1.2rem;
+        }
+        &:hover {
+          color: #656a70;
+          cursor: pointer;
+        }
       }
     }
     button {
