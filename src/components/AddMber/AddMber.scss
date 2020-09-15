@@ -8,7 +8,7 @@
     }
     display: none;
     position: absolute;
-    top: 0;
+    top: 30px;
     left: 0;
     z-index: 10;
     width: 140px;
@@ -31,11 +31,8 @@
         display: flex;
         align-items: center;
       }
-      .check {
-        display: none;
-        &.isChecked {
-          display: block;
-        }
+      .info-wrapper + svg {
+        margin: 0;
       }
     }
   }

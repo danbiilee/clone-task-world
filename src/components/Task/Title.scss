@@ -65,7 +65,7 @@
       align-items: center;
       color: $gray-dark;
       font-size: 1rem;
-      div {
+      & > div {
         margin: 2px 5px 0 0;
       }
       & > svg {
@@ -102,6 +102,32 @@
       &:hover {
         background: #148c9d;
       }
+    }
+  }
+}
+
+.badge-wrapper {
+  position: relative;
+  .badge {
+    position: absolute;
+    right: 3px;
+    top: -2px;
+    z-index: 10;
+    padding: 2px 4px;
+    border-radius: 4px;
+    color: white;
+    font-size: 0.5rem;
+    &.mber {
+      background: #6f777e;
+    }
+    &.priority {
+      background: $red;
+    }
+    &.important {
+      background: $blue;
+    }
+    &.notice {
+      background: $yellow;
     }
   }
 }

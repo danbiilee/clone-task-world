@@ -19,16 +19,20 @@ const Title = () => {
   let nextId = useTaskNextId();
 
   const textarea = useRef();
+  const undoneCnt = tasks.reduce((acc, cur) => acc + !cur.isDone, 0);
+
   const [isActive, setIsActive] = useState(false);
   const [onMber, setOnMber] = useState(false);
   const [onTag, setOnTag] = useState(false);
   const [onDate, setOnDate] = useState(false);
-  const undoneCnt = tasks.reduce((acc, cur) => acc + !cur.isDone, 0);
+  const [mberList, setMberList] = useState([]);
 
   const onToggle = type => {
-    console.log(type);
     if (type === 'wrapper') {
       setIsActive(!isActive);
+      if (onMber) setOnMber(!onMber);
+      if (onTag) setOnTag(!onTag);
+      if (onDate) setOnDate(!onDate);
     } else if (type === 'mber') {
       setOnMber(!onMber);
     } else if (type === 'tag') {
@@ -37,6 +41,17 @@ const Title = () => {
       setOnDate(!onDate);
     }
   };
+
+  const handleMberList = mber => {
+    const findMber = mberList.find(m => m.mberNo === mber.mberNo);
+    if (findMber) {
+      setMberList(mberList.filter(m => m.mberNo !== mber.mberNo));
+    } else {
+      setMberList(mberList.concat(mber));
+    }
+    setOnMber(!onMber);
+  };
+
   const onCreate = () => {
     const title = textarea.current;
     dispatch({
@@ -50,7 +65,7 @@ const Title = () => {
         chkList: [],
         commentList: [],
         fileList: [],
-        mberList: [],
+        mberList,
         stDt: null,
         endDt: null,
         finDt: null,
@@ -68,6 +83,7 @@ const Title = () => {
     nextId.current++;
     title.value = '';
     setIsActive(!isActive);
+    setMberList([]);
   };
 
   return (
@@ -83,7 +99,17 @@ const Title = () => {
           <textarea placeholder="새 업무 만들기" ref={textarea}></textarea>
           <div className="cr-btn-wrapper">
             <div className="cr-btn-l">
-              <AddMber onToggle={onToggle} onMber={onMber} />
+              <div className="badge-wrapper">
+                {mberList.length > 0 && (
+                  <span className="badge mber">{mberList.length}</span>
+                )}
+                <AddMber
+                  onToggle={onToggle}
+                  onMber={onMber}
+                  selectedMberList={mberList}
+                  handleMberList={handleMberList}
+                />
+              </div>
               <MdLocalOffer />
               <ImCalendar />
             </div>
