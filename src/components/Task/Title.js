@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { TiPencil, TiPlus, TiTimes } from 'react-icons/ti';
-import { MdGroupAdd, MdLocalOffer, MdFace } from 'react-icons/md';
+import { MdFace } from 'react-icons/md';
 import { ImCalendar } from 'react-icons/im';
 import className from 'classnames';
 import './Title.scss';
@@ -10,6 +10,7 @@ import {
   useTaskDispatch,
 } from '../../reducers/TaskContext';
 import AddMber from '../Add/AddMber';
+import AddTag from '../Add/AddTag';
 
 const today = new Date().toISOString().substring(0, 10);
 
@@ -26,6 +27,7 @@ const Title = () => {
   const [onTag, setOnTag] = useState(false);
   const [onDate, setOnDate] = useState(false);
   const [mberList, setMberList] = useState([]);
+  const [tag, setTag] = useState('');
 
   const onToggle = type => {
     if (type === 'wrapper') {
@@ -35,10 +37,16 @@ const Title = () => {
       if (onDate) setOnDate(!onDate);
     } else if (type === 'mber') {
       setOnMber(!onMber);
+      if (onTag) setOnTag(!onTag);
+      if (onDate) setOnDate(!onDate);
     } else if (type === 'tag') {
       setOnTag(!onTag);
+      if (onMber) setOnMber(!onMber);
+      if (onDate) setOnDate(!onDate);
     } else if (type === 'date') {
       setOnDate(!onDate);
+      if (onMber) setOnMber(!onMber);
+      if (onTag) setOnTag(!onTag);
     }
   };
 
@@ -52,6 +60,15 @@ const Title = () => {
     setOnMber(!onMber);
   };
 
+  const handleTag = tagNm => {
+    if (tag === tagNm) {
+      setTag('');
+    } else {
+      setTag(tagNm);
+    }
+    setOnTag(!onTag);
+  };
+
   const onCreate = () => {
     const title = textarea.current;
     dispatch({
@@ -60,7 +77,7 @@ const Title = () => {
         id: nextId.current,
         title: title.value,
         isDone: false,
-        tag: null,
+        tag,
         point: null,
         chkList: [],
         commentList: [],
@@ -84,6 +101,7 @@ const Title = () => {
     title.value = '';
     setIsActive(!isActive);
     setMberList([]);
+    setTag('');
   };
 
   return (
@@ -110,7 +128,15 @@ const Title = () => {
                   handleMberList={handleMberList}
                 />
               </div>
-              <MdLocalOffer />
+              <div className="badge-wrapper">
+                {tag && <span className={className('badge', tag)}>1</span>}
+                <AddTag
+                  onToggle={onToggle}
+                  onTag={onTag}
+                  tag={tag}
+                  handleTag={handleTag}
+                />
+              </div>
               <ImCalendar />
             </div>
             <div className="cr-btn-r">
