@@ -19,13 +19,10 @@ const AddTag = ({ onToggle, onTag, tag, handleTag }) => {
       tagNm: 'notice',
     },
   ]; // 임시
-  console.log(tag);
   let tempTagList = tagList.map(t => {
     if (t.tagNm === tag) return { ...t, isSelected: true };
     else return { ...t, isSelected: false };
   });
-
-  console.log(tempTagList);
 
   return (
     <div className="AddTag">
