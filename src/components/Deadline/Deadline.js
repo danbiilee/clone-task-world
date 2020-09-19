@@ -1,16 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import './Deadline.scss';
-
-const today = new Date().toISOString().substring(0, 10);
-
-const strToDate = str => {
-  // str = yyyy-mm-dd
-  const yy = str.substring(0, 4);
-  const mm = str.substring(5, 7);
-  const dd = str.substring(8);
-  return new Date(yy, mm - 1, dd);
-};
+import { today, strToDate } from '../../utils/utils';
 
 /*
   1. 시작일만 있는 경우: ~에 시작
