@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { TiPencil, TiPlus, TiTimes } from 'react-icons/ti';
 import { MdFace } from 'react-icons/md';
-import { ImCalendar } from 'react-icons/im';
 import className from 'classnames';
 import './Title.scss';
 import {
@@ -11,8 +10,8 @@ import {
 } from '../../reducers/TaskContext';
 import AddMber from '../Add/AddMber';
 import AddTag from '../Add/AddTag';
-
-const today = new Date().toISOString().substring(0, 10);
+import AddCalendar from '../Add/AddCalendar';
+import { today, getFormatDate } from '../../utils/utils';
 
 const Title = () => {
   const dispatch = useTaskDispatch();
@@ -27,7 +26,16 @@ const Title = () => {
   const [onTag, setOnTag] = useState(false);
   const [onDate, setOnDate] = useState(false);
   const [mberList, setMberList] = useState([]);
-  const [tag, setTag] = useState('');
+  const [tag, setTag] = useState(null);
+  const [stDt, setStartDate] = useState(null);
+  const [endDt, setEndDate] = useState(null);
+
+  const resetState = () => {
+    setMberList([]);
+    setTag(null);
+    setStartDate(null);
+    setStartDate(null);
+  };
 
   const onToggle = type => {
     if (type === 'wrapper') {
@@ -35,14 +43,15 @@ const Title = () => {
       if (onMber) setOnMber(!onMber);
       if (onTag) setOnTag(!onTag);
       if (onDate) setOnDate(!onDate);
+      resetState();
     } else if (type === 'mber') {
       setOnMber(!onMber);
       if (onTag) setOnTag(!onTag);
-      if (onDate) setOnDate(!onDate);
+      if (!stDt && !endDt && onDate) setOnDate(!onDate);
     } else if (type === 'tag') {
       setOnTag(!onTag);
       if (onMber) setOnMber(!onMber);
-      if (onDate) setOnDate(!onDate);
+      if (!stDt && !endDt && onDate) setOnDate(!onDate);
     } else if (type === 'date') {
       setOnDate(!onDate);
       if (onMber) setOnMber(!onMber);
@@ -71,6 +80,19 @@ const Title = () => {
 
   const onCreate = () => {
     const title = textarea.current;
+
+    // 유효성 검사
+    if (!title.value) {
+      alert('업무 이름을 입력하세요!');
+      title.focus();
+      return;
+    }
+    if (stDt && endDt && stDt > endDt) {
+      alert('마감일은 시작일보다 빠를 수 없습니다!');
+      setEndDate(null);
+      return;
+    }
+
     dispatch({
       type: 'CREATE',
       task: {
@@ -83,8 +105,8 @@ const Title = () => {
         commentList: [],
         fileList: [],
         mberList,
-        stDt: null,
-        endDt: null,
+        stDt: getFormatDate(stDt),
+        endDt: getFormatDate(endDt),
         finDt: null,
         regMber: {
           mberNo: 1,
@@ -99,9 +121,7 @@ const Title = () => {
     });
     nextId.current++;
     title.value = '';
-    setIsActive(!isActive);
-    setMberList([]);
-    setTag('');
+    resetState();
   };
 
   return (
@@ -115,7 +135,7 @@ const Title = () => {
         </div>
         <div className={className('create-wrapper', { isActive: isActive })}>
           <textarea placeholder="새 업무 만들기" ref={textarea}></textarea>
-          <div className="cr-btn-wrapper">
+          <div className={className('cr-btn-wrapper', { onDate: onDate })}>
             <div className="cr-btn-l">
               <div className="badge-wrapper">
                 {mberList.length > 0 && (
@@ -137,7 +157,14 @@ const Title = () => {
                   handleTag={handleTag}
                 />
               </div>
-              <ImCalendar />
+              <AddCalendar
+                onToggle={onToggle}
+                onDate={onDate}
+                stDt={stDt}
+                endDt={endDt}
+                setStartDate={setStartDate}
+                setEndDate={setEndDate}
+              />
             </div>
             <div className="cr-btn-r">
               <button

@@ -60,6 +60,15 @@
     border: 2px solid $cyan;
     border-radius: 3px;
     border-top: 0;
+    &.onDate {
+      position: relative;
+      padding-bottom: 35px;
+      .cr-btn-r {
+        position: absolute;
+        right: 5px;
+        top: 35px;
+      }
+    }
     .cr-btn-l {
       display: flex;
       align-items: center;
