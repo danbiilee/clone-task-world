@@ -1,12 +1,9 @@
 const mongoose = require('mongoose');
 
 const taskSchema = mongoose.Schema({
-  id: Number,
-  title: String,
-  isDone: {
-    type: Boolean,
-    default: false,
-  },
+  id: { type: Number, required: true, unique: true },
+  title: { type: String, required: true },
+  isDone: { type: Boolean, default: false },
   tag: String,
   point: Number,
   chkList: [],
@@ -20,8 +17,7 @@ const taskSchema = mongoose.Schema({
   regMber: {},
   regDt: { type: Date, default: Date.now },
   updMber: {},
-  updDt: { type: Date, default: Date.now },
+  updDt: Date,
 });
 
-const Task = mongoose.model('Task', taskSchema);
-module.exports = { Task };
+module.exports = mongoose.model('Task', taskSchema);

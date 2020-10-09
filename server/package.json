@@ -1,0 +1,28 @@
+{
+  "name": "clone-task-world",
+  "version": "1.0.0",
+  "description": "- node-sass - open-color - react-icons - styled-components - classnames",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danbiilee/clone-task-world.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danbiilee/clone-task-world/issues"
+  },
+  "homepage": "https://github.com/danbiilee/clone-task-world#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.7"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.4"
+  }
+}
