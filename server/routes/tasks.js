@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 
 // Show One
 router.get('/:id', (req, res) => {
-  Task.findOne({ id: req.params.id }, (err, task) => {
+  Task.findOne({ _id: req.params.id }, (err, task) => {
     if (err) return res.json(err);
     res.json(task);
   });

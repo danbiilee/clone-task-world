@@ -8,7 +8,7 @@ const port = process.env.PORT || 4000; // 서버 포트
 // DB 설정
 mongoose
   .connect(
-    'mongodb+srv://taskworld:taskworld1!@cluster0.wvzga.mongodb.net/<dbname>?retryWrites=true&w=majority',
+    'mongodb+srv://taskworld:taskworld1!@cluster0.wvzga.mongodb.net/clone_task_world?retryWrites=true&w=majority',
     {
       useNewUrlParser: true,
       useCreateIndex: true,
