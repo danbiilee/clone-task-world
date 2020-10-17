@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/danbiilee/clone-task-world#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "mongoose": "^5.10.7"
   },
   "devDependencies": {
