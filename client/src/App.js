@@ -1,19 +1,14 @@
 import React from 'react';
-import Header from './components/Header/Header';
-import Project from './pages/Project';
-import Footer from './components/Footer/Footer';
-import { TaskProvider } from './reducers/TaskContext';
-import { WorkspaceProvider } from './reducers/WorkspaceContext';
+import { Route } from 'react-router-dom';
+import MainPage from './pages/user';
+import WorkspacePage from './pages/project/index';
 
 function App() {
   return (
-    <WorkspaceProvider>
-      <TaskProvider>
-        <Header />
-        <Project />
-        <Footer />
-      </TaskProvider>
-    </WorkspaceProvider>
+    <>
+      <Route exact path="/" component={MainPage} />
+      <Route path="/ws" component={WorkspacePage} />
+    </>
   );
 }
 
