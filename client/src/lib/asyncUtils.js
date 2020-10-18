@@ -1,13 +1,13 @@
 export const createPromiseThunk = (type, promiseCreator) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
 
-  return () => async dispatch => {
+  return param => async dispatch => {
     try {
-      dispatch({ type });
-      const payload = await promiseCreator();
-      dispatch({ type: SUCCESS, payload });
+      dispatch({ type, param }); // 요청 시작
+      const payload = await promiseCreator(param); // 결과의 이름을 payload로 통일
+      dispatch({ type: SUCCESS, payload, param }); // 성공
     } catch (e) {
-      dispatch({ type: ERROR, error: e });
+      dispatch({ type: ERROR, error: e }); // 실패
     }
   };
 };
