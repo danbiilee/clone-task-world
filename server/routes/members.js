@@ -93,11 +93,4 @@ router.get('/logout', (req, res) => {
   });
 });
 
-// Get Session LOGIN_USER
-router.get('/', (req, res) => {
-  console.log('###### GET LOGIN_USER!!!!');
-  if (req.session.LOGIN_USER) return res.json(req.session.LOGIN_USER);
-  else return res.json(null);
-});
-
 module.exports = router;

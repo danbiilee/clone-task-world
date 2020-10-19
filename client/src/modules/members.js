@@ -1,4 +1,4 @@
-import * as api from '../api/members';
+import * as api from '../api/sessions';
 import {
   stateUtils,
   handleAsyncActions,

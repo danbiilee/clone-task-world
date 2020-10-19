@@ -41,5 +41,6 @@ app.listen(port, () =>
 );
 
 // 라우터 설정
-app.use('/tasks', require('./routes/tasks'));
+app.use('/sessions', require('./routes/sessions'));
 app.use('/members', require('./routes/members'));
+app.use('/tasks', require('./routes/tasks'));
