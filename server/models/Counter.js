@@ -14,11 +14,7 @@ const getNextSequence = async name => {
   const result = await Counter.findOneAndUpdate(
     { _id: name },
     { $inc: { seq: 1 } },
-    { new: true },
-    (error, counter) => {
-      if (error) return res.json({ success: false, error });
-      return counter;
-    },
+    { new: true, upsert: true },
   );
   return result.seq;
 };

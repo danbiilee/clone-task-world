@@ -1,55 +1,88 @@
 const express = require('express');
 const router = express.Router();
 const Member = require('../models/Member');
+const Wkspace = require('../models/Workspace');
 const getNextSequence = require('../models/Counter');
 
 // Create
 router.post('/signup', async (req, res) => {
-  const member = new Member(req.body);
-  const seq = await getNextSequence('memberId');
-  member.set({ _id: seq });
-  member.set({ imgUrl: 'default.png' });
+  // Check Duplication
+  let member;
+  try {
+    member = await Member.findOne({ email: req.body.email });
+    if (member) return res.json({ duplicate: true });
+  } catch (e) {
+    console.log(`##### ERROR: Check Email Duplication `, e);
+  }
 
-  // email 중복검사
-  Member.findOne({ email: member.email }, (err, result) => {
-    if (err) return res.json(err);
-    if (result) {
-      return res.json({ duplicate: true });
-    } else {
-      member.save((err, memberInfo) => {
-        if (err) throw new Error('###### Member Register is Fail!!!');
-        return res.status(200).json({ success: true });
-      });
-    }
+  // Get Sequences
+  let memberId;
+  let workspaceId;
+  try {
+    memberId = await getNextSequence('memberId');
+    workspaceId = await getNextSequence('workspaceId');
+  } catch (e) {
+    console.log(`##### ERROR: Get Sequences `, e);
+  }
+
+  // Create Member
+  let newMember = new Member(req.body);
+  newMember.set({ imgUrl: 'default.png' });
+  newMember.set({ _id: memberId });
+
+  let resultMember;
+  try {
+    resultMember = await newMember.save();
+  } catch (e) {
+    console.log(`##### ERROR: Create Member `, e);
+  }
+
+  // Create MyWorkspace
+  let resultWs;
+  const ws = new Wkspace({
+    _id: workspaceId,
+    title: newMember.email.split('@')[0],
+    members: [newMember._id],
+    private: 'Y',
   });
+  try {
+    resultWs = await ws.save();
+  } catch (e) {
+    console.log(`##### ERROR: Create MyWorkspace`, e);
+  }
+
+  if (resultMember && resultWs) return res.json({ success: true });
 });
 
 // Login
-router.post('/login', (req, res) => {
-  Member.findOne({ email: req.body.email })
-    .select('+password')
-    .exec((err, member) => {
-      if (err) throw new Error('###### Member Could not be Founded!!!');
+router.post('/login', async (req, res) => {
+  let member;
+  let result = {
+    emailCheck: false,
+    pwdCheck: false,
+  };
 
-      let result = {
-        emailCheck: false,
-        pwdCheck: false,
-      };
-      if (member) {
-        result.emailCheck = true;
-        // 비밀번호 검사
-        member.comparePassword(req.body.password, (err, bool) => {
-          if (err) return res.json(result);
+  try {
+    member = await Member.findOne({ email: req.body.email })
+      .select('+password')
+      .exec();
+  } catch (e) {
+    console.log(`##### ERROR: Find Member `, e);
+  }
 
-          result.pwdCheck = bool;
-          req.session.LOGIN_USER = member; // 세션 저장
-          console.log(`Store Session = ${req.session.LOGIN_USER}`);
-          return res.json(result);
-        });
-      } else {
-        return res.json(result);
-      }
+  if (member) {
+    result.emailCheck = true;
+    // 비밀번호 검사
+    member.comparePassword(req.body.password, (err, bool) => {
+      if (err) return res.json(result);
+
+      result.pwdCheck = bool;
+      req.session.LOGIN_USER = member; // 세션 저장
+      return res.json(result);
     });
+  } else {
+    return res.json(result);
+  }
 });
 
 // Logout
@@ -62,7 +95,7 @@ router.get('/logout', (req, res) => {
 
 // Get Session LOGIN_USER
 router.get('/', (req, res) => {
-  console.log('##### Start to GET SESSION !!!!');
+  console.log('###### GET LOGIN_USER!!!!');
   if (req.session.LOGIN_USER) return res.json(req.session.LOGIN_USER);
   else return res.json(null);
 });
