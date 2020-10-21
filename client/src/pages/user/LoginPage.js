@@ -45,7 +45,7 @@ const LoginPage = ({ history }) => {
           if (!data.pwdCheck) {
             alert('유효한 비밀번호가 아닙니다.');
             pwdInput.current.focus();
-          } else window.location.href = '/';
+          } else window.location.href = '/ws';
         }
       })
       .catch(err => alert('로그인 실패!'));

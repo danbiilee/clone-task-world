@@ -43,7 +43,7 @@ router.post('/signup', async (req, res) => {
     _id: workspaceId,
     title: newMember.email.split('@')[0],
     members: [newMember._id],
-    private: 'Y',
+    privateAt: 'Y',
   });
   try {
     resultWs = await ws.save();

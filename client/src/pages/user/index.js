@@ -6,7 +6,6 @@ import SignupPage from './SignupPage';
 import Header from '../../components/Header/Header';
 
 const MainPage = () => {
-  console.log('MainPage');
   return (
     <Router>
       <Header />
