@@ -23,8 +23,6 @@ router.get('/:id', async (req, res) => {
   let wkspace;
   try {
     wkspace = await Wkspace.findOne({ _id: req.params.id }).populate('members');
-    console.log(`GET Workspace One ${wkspace}`);
-    //if (wkspace) return res.json({ wkspace });
     if (wkspace) return res.json(wkspace);
   } catch (e) {
     console.log('##### ERROR: GET Workspace One', e);
