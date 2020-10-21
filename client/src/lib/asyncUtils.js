@@ -1,3 +1,26 @@
+export const stateUtils = {
+  initial: (initialData = null) => ({
+    loading: false,
+    data: initialData,
+    error: null,
+  }),
+  loading: (prevData = null) => ({
+    loading: true,
+    data: prevData,
+    error: null,
+  }),
+  success: data => ({
+    loading: false,
+    data,
+    error: null,
+  }),
+  error: error => ({
+    loading: false,
+    data: null,
+    error,
+  }),
+};
+
 export const createPromiseThunk = (type, promiseCreator) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
 
@@ -8,6 +31,31 @@ export const createPromiseThunk = (type, promiseCreator) => {
       dispatch({ type: SUCCESS, payload, param }); // 성공
     } catch (e) {
       dispatch({ type: ERROR, error: e }); // 실패
+    }
+  };
+};
+
+export const handleAsyncActions = (type, key, keepData = false) => {
+  const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
+  return (state, action) => {
+    switch (action.type) {
+      case type:
+        return {
+          ...state,
+          [key]: stateUtils.loading(keepData ? state[key].data : null),
+        };
+      case SUCCESS:
+        return {
+          ...state,
+          [key]: stateUtils.success(action.payload),
+        };
+      case ERROR:
+        return {
+          ...state,
+          [key]: stateUtils.error(action.error),
+        };
+      default:
+        return state;
     }
   };
 };
@@ -32,60 +80,11 @@ export const createPromiseThunkById = (
   };
 };
 
-export const stateUtils = {
-  initial: (initialData = null) => ({
-    loading: false,
-    data: initialData,
-    error: null,
-  }),
-  loading: (prevData = null) => ({
-    loading: true,
-    data: prevData,
-    error: null,
-  }),
-  success: data => ({
-    loading: false,
-    data,
-    error: null,
-  }),
-  error: error => ({
-    loading: false,
-    data: null,
-    error,
-  }),
-};
-
-export const handleAsyncActions = (type, key, keepData = false) => {
-  const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
-
-  return (state, action) => {
-    switch (action.type) {
-      case type:
-        return {
-          ...state,
-          [key]: stateUtils.loading(keepData ? state[key].data : null),
-        };
-      case SUCCESS:
-        return {
-          ...state,
-          [key]: stateUtils.success(action.payload),
-        };
-      case ERROR:
-        return {
-          ...state,
-          [key]: stateUtils.error(action.error),
-        };
-      default:
-        return state;
-    }
-  };
-};
-
 export const handleAsyncActionsById = (type, key, keepData = false) => {
   const [SUCCESS, ERROR] = [`${type}_SUCCESS`, `${type}_ERROR`];
 
   return (state, action) => {
-    const id = state.meta;
+    const id = action.meta;
     switch (action.type) {
       case type:
         return {

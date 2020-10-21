@@ -44,4 +44,5 @@ app.listen(port, () =>
 app.use('/sessions', require('./routes/sessions'));
 app.use('/members', require('./routes/members'));
 app.use('/workspaces', require('./routes/workspaces'));
+app.use('/projects', require('./routes/projects'));
 app.use('/tasks', require('./routes/tasks'));
