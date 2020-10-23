@@ -1,0 +1,63 @@
+@import '../../utils/utils.scss';
+
+.ListBox {
+  display: none;
+  &.onToggle {
+    display: block;
+  }
+  position: absolute;
+  top: 50px;
+  left: 0;
+  z-index: 10;
+  width: max-content;
+  height: max-content;
+  .outer {
+    overflow-y: auto;
+    padding: 5px;
+    background: white;
+    border: 1px solid $gray-middle;
+    border-radius: 3px;
+    box-shadow: 5px 5px 10px $gray-light;
+    color: #555;
+    font-size: 0.8rem;
+    font-weight: lighter;
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 5px;
+      cursor: pointer;
+      &:hover {
+        background: $gray-light;
+        cursor: pointer;
+      }
+    }
+    .inner {
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+  }
+
+  .initial {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 28px;
+    min-height: 28px;
+    border-radius: 5px;
+    margin-right: 10px;
+    background: $gray-dark;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  .privateAt {
+    width: 15px;
+    margin-left: 5px;
+  }
+  .check {
+    width: 17px;
+    margin-left: 10px;
+  }
+}

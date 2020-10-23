@@ -38,41 +38,71 @@
     display: flex;
     width: 100%;
   }
-  .gnb-home {
-    width: 80%;
-    @include align-li('left');
-    .logo {
-      .logo-circle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
-        background: $oc-gray-1;
-        border-radius: 50%;
-      }
-      img {
-        width: 25px;
-        height: 25px;
-      }
+}
+
+.gnb-home {
+  width: 80%;
+  @include align-li('left');
+  .logo {
+    padding-right: 20px;
+    .logo-circle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 30px;
+      height: 30px;
+      margin-right: 10px;
+      background: $oc-gray-1;
+      border-radius: 50%;
+    }
+    img {
+      width: 25px;
+      height: 25px;
     }
   }
-
-  .gnb-user {
+  .ws-list {
+    position: relative;
+    border: 1px solid $gray-dark;
+    border-width: 0 1px;
+    &:hover {
+      background: #4c5259;
+    }
+  }
+  .ws-initial {
     display: flex;
-    justify-content: flex-end;
-    width: 20%;
-    @include align-li('right');
-    .user-wrapper {
-      width: 50px;
-      height: 50px;
-      border-left: 1px solid $gray-dark;
-      margin-right: -28px;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    margin-right: 10px;
+    background: $gray-dark;
+  }
+  .dot-menu {
+    width: 20px;
+    margin-left: 10px;
+    padding: 3px;
+    border-radius: 10px;
+    &:hover {
+      background: $gray-dark;
     }
-    .user {
-      width: 50px;
-      height: 50px;
-    }
+  }
+}
+
+.gnb-user {
+  display: flex;
+  justify-content: flex-end;
+  width: 20%;
+  @include align-li('right');
+  .user-wrapper {
+    width: 50px;
+    height: 50px;
+    border-left: 1px solid $gray-dark;
+    margin-right: -28px;
+  }
+  .user {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
   }
 }

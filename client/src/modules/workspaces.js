@@ -41,11 +41,7 @@ export default function wkspaces(state = initialState, action) {
     case GET_WKSPACE:
     case GET_WKSPACE_SUCCESS:
     case GET_WKSPACE_ERROR:
-      return handleAsyncActionsById(
-        GET_WKSPACE,
-        'workspace',
-        true,
-      )(state, action);
+      return handleAsyncActions(GET_WKSPACE, 'workspace', true)(state, action);
     default:
       return state;
   }
