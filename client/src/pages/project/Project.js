@@ -1,6 +1,7 @@
 import React from 'react';
-import SubHeader from '../components/Header/SubHeader';
-import TaskListWrapper from '../components/Task';
+import SubHeader from '../../components/Header/SubHeader';
+import TaskListWrapper from '../../components/Task';
+import { getTask } from '../../modules/tasks';
 
 const Project = () => {
   return (
