@@ -17,10 +17,7 @@ const GET_WKSPACE_SUCCESS = 'workspaces/GET_WKSPACE_SUCCESS';
 const GET_WKSPACE_ERROR = 'workspaces/GET_WKSPACE_ERROR';
 
 export const getWkspaces = createPromiseThunk(GET_WKSPACES, api.getWkspaces);
-export const getWkspace = createPromiseThunkById(
-  GET_WKSPACE,
-  api.getWkspaceById,
-);
+export const getWkspace = createPromiseThunk(GET_WKSPACE, api.getWkspaceById);
 
 const initialState = {
   workspaces: stateUtils.initial(),

@@ -13,25 +13,6 @@ const Header = () => {
   const { data: wkspaces } = useSelector(state => state.workspaces.workspaces);
   const { data: wkspace } = useSelector(state => state.workspaces.workspace);
 
-  const handleLogout = () => {
-    logout();
-    window.location.href = '/';
-  };
-
-  const [onWsList, setOnWsList] = useState(false);
-  const toggleList = type => {
-    if (type === 'ws') {
-      setOnWsList(!onWsList);
-    }
-  };
-
-  const onClick = (type, id) => {
-    console.log(type, id);
-    if (type === 'wkspace') {
-      dispatch(getWkspace(id));
-    }
-  };
-
   useEffect(() => {
     if (loginUser) {
       dispatch(getWkspaces());
@@ -46,6 +27,24 @@ const Header = () => {
     }
     return;
   }, [dispatch, wkspaces]);
+
+  const handleLogout = () => {
+    logout();
+    window.location.href = '/';
+  };
+
+  const [onWsList, setOnWsList] = useState(false); //워크스페이스 리스트
+  const onToggle = type => {
+    if (type === 'ws') {
+      setOnWsList(!onWsList);
+    }
+  };
+
+  const onClick = (type, id) => {
+    if (type === 'wkspace') {
+      dispatch(getWkspace(id));
+    }
+  };
 
   return (
     <header className="Header">
@@ -62,12 +61,12 @@ const Header = () => {
               <h1>TASK WORLD</h1>
             </Link>
           </li>
-          {loginUser && wkspaces && (
-            <li className="ws-list" onClick={() => toggleList('ws')}>
+          {wkspace && (
+            <li className="ws-list" onClick={() => onToggle('ws')}>
               <span className="ws-initial">
-                {wkspaces[0].title.charAt(0).toUpperCase()}
+                {wkspace.title.charAt(0).toUpperCase()}
               </span>
-              <span>{wkspaces[0].title}</span>
+              <span>{wkspace.title}</span>
               <img
                 className="dot-menu"
                 src={process.env.PUBLIC_URL + 'resources/img/dot-menu.png'}
