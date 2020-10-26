@@ -28,7 +28,6 @@ export const createPromiseThunk = (type, promiseCreator) => {
     try {
       dispatch({ type, param }); // 요청 시작
       const payload = await promiseCreator(param); // 결과의 이름을 payload로 통일
-      console.log('createPromiseThunk', payload, param);
       dispatch({ type: SUCCESS, payload, param }); // 성공
     } catch (e) {
       dispatch({ type: ERROR, error: e }); // 실패

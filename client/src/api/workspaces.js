@@ -6,7 +6,11 @@ export const getWkspaces = async () => {
 };
 
 export const getWkspaceById = async id => {
-  console.log('api getWkspaceById', id);
   const response = await axios.get(`/workspaces/${id}`);
+  return response.data;
+};
+
+export const createWkspace = async () => {
+  const response = await axios.post(`/workspaces`);
   return response.data;
 };

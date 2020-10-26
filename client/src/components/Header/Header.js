@@ -1,37 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../api/members';
-import { getLoginUser } from '../../modules/members';
-import { getWkspaces, getWkspace } from '../../modules/workspaces';
+import { getWkspace } from '../../modules/workspaces';
 import './Header.scss';
 import ListBox from '../ListBox/ListBox';
 
-const Header = () => {
+const Header = ({ loginUser, wkspaces, wkspace }) => {
   const dispatch = useDispatch();
-  const { data: loginUser } = useSelector(state => state.members.loginUser);
-  const { data: wkspaces } = useSelector(state => state.workspaces.workspaces);
-  const { data: wkspace } = useSelector(state => state.workspaces.workspace);
-
-  useEffect(() => {
-    if (loginUser) {
-      dispatch(getWkspaces());
-      return;
-    }
-    dispatch(getLoginUser());
-  }, [dispatch, loginUser]);
-
-  useEffect(() => {
-    if (wkspaces) {
-      dispatch(getWkspace(wkspaces[0]._id));
-    }
-    return;
-  }, [dispatch, wkspaces]);
-
-  const handleLogout = () => {
-    logout();
-    window.location.href = '/';
-  };
 
   const [onWsList, setOnWsList] = useState(false); //워크스페이스 리스트
   const onToggle = type => {
@@ -40,10 +16,17 @@ const Header = () => {
     }
   };
 
-  const onClick = (type, id) => {
+  const selectWkspace = (type, id) => {
     if (type === 'wkspace') {
       dispatch(getWkspace(id));
     }
+  };
+
+  const onCreate = () => {};
+
+  const handleLogout = () => {
+    logout();
+    window.location.href = '/';
   };
 
   return (
@@ -76,7 +59,7 @@ const Header = () => {
                 wkspaces={wkspaces}
                 wkspace={wkspace}
                 onToggle={onWsList}
-                onClick={onClick}
+                onClick={selectWkspace}
               />
             </li>
           )}

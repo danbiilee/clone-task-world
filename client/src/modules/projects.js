@@ -16,10 +16,17 @@ const GET_PROJECT = 'workspaces/GET_PROJECT';
 const GET_PROJECT_SUCCESS = 'workspaces/GET_PROJECT_SUCCESS';
 const GET_PROJECT_ERROR = 'workspaces/GET_PROJECT_ERROR';
 
-export const getProjects = createPromiseThunk(GET_PROJECTS, api.getProjects);
+export const getProjects = createPromiseThunkById(
+  GET_PROJECTS,
+  api.getProjects,
+);
+export const getProjectsByWsId = createPromiseThunkById(
+  GET_PROJECTS,
+  api.getProjectsByWsId,
+);
 export const getProject = createPromiseThunkById(
   GET_PROJECT,
-  api.getProjectById,
+  api.getProjectsByWsId,
 );
 
 const initialState = {

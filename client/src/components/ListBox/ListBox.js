@@ -1,14 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { getWkspace } from '../../modules/workspaces';
 import className from 'classnames';
 import './ListBox.scss';
 
-const ListBox = ({ wkspaces, wkspace, onToggle, onClick }) => {
+const ListBox = ({ wkspaces, wkspace, onToggle, onClick, onModal }) => {
+  const dispatch = useDispatch();
   const id = wkspace && wkspace._id;
   return (
     <div className={className('ListBox', { onToggle: onToggle })}>
       <ul className="outer">
         {wkspaces.map(item => (
-          <li key={item._id} onClick={() => onClick('wkspace', item._id)}>
+          <li key={item._id} onClick={() => dispatch(getWkspace(item._id))}>
             <div className="inner">
               <div className="initial">
                 {item.title.charAt(0).toUpperCase()}
@@ -37,6 +40,7 @@ const ListBox = ({ wkspaces, wkspace, onToggle, onClick }) => {
             )}
           </li>
         ))}
+        <li onClick={onModal}>Create Workspace</li>
       </ul>
     </div>
   );

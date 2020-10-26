@@ -29,4 +29,28 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Create
+router.post('/', async (req, res) => {
+  let result;
+
+  // Get Sequences
+  let workspaceId;
+  try {
+    workspaceId = await getNextSequence('workspaceId');
+    //console.log('workspaceId', workspaceId);
+  } catch (e) {
+    console.log(`##### ERROR: Get Sequences `, e);
+  }
+
+  const ws = new Wkspace(req.body);
+  ws.set({ _id: workspaceId });
+
+  try {
+    result = await ws.save();
+    if (result) res.json({ success: true });
+  } catch (e) {
+    console.log(`##### ERROR: Create MyWorkspace`, e);
+  }
+});
+
 module.exports = router;
