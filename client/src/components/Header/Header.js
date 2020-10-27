@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../api/members';
 import { getWkspace } from '../../modules/workspaces';
-import './Header.scss';
 import ListBox from '../ListBox/ListBox';
+import './Header.scss';
 
 const Header = ({ loginUser, wkspaces, wkspace }) => {
   const dispatch = useDispatch();
@@ -21,8 +21,6 @@ const Header = ({ loginUser, wkspaces, wkspace }) => {
       dispatch(getWkspace(id));
     }
   };
-
-  const onCreate = () => {};
 
   const handleLogout = () => {
     logout();

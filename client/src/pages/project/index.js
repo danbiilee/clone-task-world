@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import { getLoginUser } from '../../modules/members';
 import { getWkspaces, getWkspace } from '../../modules/workspaces';
 import { getProjectsByWsId } from '../../modules/projects';
 import Header from '../../components/Header/Header';
-import ProjectListPage from './ProjectListPage';
+import ProjectPage from './ProjectPage';
 
 const WorkspacePage = () => {
   const dispatch = useDispatch();
   const { data: loginUser } = useSelector(state => state.members.loginUser);
   const { data: wkspaces } = useSelector(state => state.workspaces.workspaces);
   const { data: wkspace } = useSelector(state => state.workspaces.workspace);
-  const { data: projects } = useSelector(state => state.projects.projects);
+  const projects = useSelector(state => state.projects.projects);
 
   useEffect(() => {
     if (loginUser) {
@@ -32,7 +32,14 @@ const WorkspacePage = () => {
   return (
     <Router>
       <Header loginUser={loginUser} wkspaces={wkspaces} wkspace={wkspace} />
-      <ProjectListPage projects={projects} />
+      <ProjectPage projects={projects} />
+      {/* <Switch>
+        <Route
+          path="/ws"
+          component={() => <ProjectListPage projects={projects} />}
+        />
+        <Route exact path="/ws/:id" component={ProjectPage} />
+      </Switch> */}
     </Router>
   );
 };
